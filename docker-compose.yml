@@ -11,6 +11,7 @@ services:
   base:
     restart: unless-stopped
     build: .
+    env_file: .env
     environment:
       # Run `docker-compose run web config generate-secret-key`
       # to get the SENTRY_SECRET_KEY value.
@@ -18,7 +19,7 @@ services:
       SENTRY_MEMCACHED_HOST: memcached
       SENTRY_REDIS_HOST: redis
       SENTRY_POSTGRES_HOST: postgres
-      SENTRY_EMAIL_HOST: smtp
+      # SENTRY_EMAIL_HOST: smtp
     volumes:
       - ./data/sentry:/var/lib/sentry/files
 
@@ -49,7 +50,7 @@ services:
       - memcached
       - smtp
     ports:
-      - '9000:9000'
+      - '80:9000'
 
   cron:
     restart: unless-stopped
